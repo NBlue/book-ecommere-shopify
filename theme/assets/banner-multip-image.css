@@ -1,0 +1,91 @@
+.image-item {
+}
+
+.banner-multip-container {
+  background-color: #f4f3f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px 0;
+}
+.banner-multip-container .image-wrap {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+}
+.banner-multip-container .image-item {
+  width: 185px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.banner-multip-container .image-item:nth-child(1),
+.banner-multip-container .image-item:nth-child(5) {
+  margin-top: 100px;
+}
+
+.banner-multip-container .image-item:nth-child(2),
+.banner-multip-container .image-item:nth-child(4) {
+  margin-top: 50px;
+}
+
+.banner-multip-container .banner-multip-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.banner-multip-container .banner-multip-content-title {
+  margin: 0;
+  font-weight: bold;
+  font-size: 50px;
+  position: absolute;
+  top: -30px;
+  color: #123;
+}
+.banner-multip-container .banner-multip-content-subtitle {
+  margin: 42px 0 0 0;
+  font-weight: 500;
+  font-size: 32px;
+  color: #666;
+}
+.banner-multip-container .banner-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  border-radius: 30px;
+  margin-top: 30px;
+  padding: 4px 5px;
+  background-color: #efc031;
+  text-decoration: none;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s linear;
+}
+
+.banner-multip-container .banner-btn:hover {
+  opacity: 0.8;
+}
+
+.banner-multip-container .banner-btn-wrap {
+  background-color: #fff;
+  border-radius: 40px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.banner-multip-container .banner-btn-icon {
+  width: 20px;
+  color: red;
+}
+.banner-multip-container .banner-btn-text {
+  color: #fff;
+  font-size: 16px;
+  margin: 0 12px;
+}

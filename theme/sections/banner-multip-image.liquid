@@ -1,0 +1,102 @@
+{{ 'banner-multip-image.css' | asset_url | stylesheet_tag }}
+
+<div class="banner-multip-container">
+  <div class="image-wrap">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {%- when 'image' -%}
+          <img src="{{block.settings.image | image_url}}" alt="" class="image-item">
+      {% endcase %}
+    {% endfor %}
+  </div>
+  <div class="banner-multip-content">
+    <h1 class="banner-multip-content-title">{{ section.settings.title }}</h1>
+    <h3 class="banner-multip-content-subtitle">{{ section.settings['sub-title'] }}</h3>
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {%- when 'button' -%}
+          <a href="{{ block.settings.button-banner-url  }}" class="banner-btn">
+            <div class="banner-btn-wrap">
+              <img src="{{block.settings.button-icon |  image_url }}" alt="" class="banner-btn-icon">
+            </div>
+            <p class="banner-btn-text">{{ block.settings['button-banner'] }}</p>
+          </a>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner Multip Image",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Enter your title:",
+      "default": "Buy Your Dream Books",
+      "id": "title"
+    },
+    {
+      "type": "text",
+      "label": "Enter you sub title:",
+      "default": "Donec sodales sagittis magna. SedMaecenas nec odio et ante tincidunt tempus.",
+      "id": "sub-title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "limit": 5,
+      "name": "Add image block:",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Your image:",
+          "id": "image"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "limit": 1,
+      "name": "Add button block:",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button-banner",
+          "label": "Button label",
+          "default": "Show now",
+          "info": "Hello Nam button"
+        },
+        {
+          "type": "url",
+          "id": "button-banner-url",
+          "label": "Url button navigator"
+        },
+        {
+          "type": "checkbox",
+          "id": "button-checkbox-isIcon",
+          "label": "Want to add icon to button",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "button-icon",
+          "label": "Add icon:"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Multip Image",
+      "blocks": [
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
