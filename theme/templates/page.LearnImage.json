@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "banner-multip": {
+      "type": "banner-multip-image",
+      "blocks": {
+        "e9bc15a6-e1fb-4859-9396-7430b2ecc5ee": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/person-fishing-on-the-beach-is-silhouetted-at-sunset.jpg"
+          }
+        },
+        "715e7082-c52a-4f83-b6c9-94f2c615147a": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/model-laughs-barefoot.jpg"
+          }
+        },
+        "7e2884c0-ebba-47b7-8edd-42de4f94d8a2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/friends-backpacking-together.jpg"
+          }
+        },
+        "85882fa3-8cf0-4939-b4cf-8f0385ce1b99": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/coffee-s-ready.jpg"
+          }
+        },
+        "eb90dd57-c796-41a5-a094-cdd36b2b37b5": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/entrepreneurs-journal.jpg"
+          }
+        },
+        "8ef44520-5d07-4b69-aa1b-118fda741738": {
+          "type": "button",
+          "settings": {
+            "button-banner": "Show now",
+            "button-banner-url": "shopify:\/\/collections\/all",
+            "button-checkbox-isIcon": true,
+            "button-icon": "shopify:\/\/shop_images\/book-icon.svg"
+          }
+        }
+      },
+      "block_order": [
+        "e9bc15a6-e1fb-4859-9396-7430b2ecc5ee",
+        "715e7082-c52a-4f83-b6c9-94f2c615147a",
+        "7e2884c0-ebba-47b7-8edd-42de4f94d8a2",
+        "85882fa3-8cf0-4939-b4cf-8f0385ce1b99",
+        "eb90dd57-c796-41a5-a094-cdd36b2b37b5",
+        "8ef44520-5d07-4b69-aa1b-118fda741738"
+      ],
+      "settings": {
+        "title": "Buy Your Dream Books",
+        "sub-title": "Donec sodales sagittis magna. SedMaecenas nec odio et ante tincidunt tempus."
+      }
+    }
+  },
+  "order": [
+    "banner-multip"
+  ]
+}

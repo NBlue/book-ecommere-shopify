@@ -1,46 +1,59 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "0d5c5f77-df21-41bf-9bf3-e6606074c2e2": {
+      "type": "banner-multip-image",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "template--16955854160090__0d5c5f77-df21-41bf-9bf3-e6606074c2e2-image-1": {
+          "type": "image",
           "settings": {
-            "heading": "Buy Your Dream Books",
-            "heading_size": "h0"
+            "image": "shopify:\/\/shop_images\/image1.jpg"
           }
         },
-        "sub-title": {
-          "type": "text",
+        "a81f2901-e48d-4475-859a-0ae1ba49de54": {
+          "type": "image",
           "settings": {
-            "text": "Donec sodales sagittis magna. SedMaecenas nec odio et ante tincidunt tempus.",
-            "text_style": "body"
+            "image": "shopify:\/\/shop_images\/image3.jpg"
           }
         },
-        "button": {
-          "type": "buttons",
+        "a0e98e07-eca0-4162-9ab0-1a8537303dcd": {
+          "type": "image",
           "settings": {
-            "button_label_1": "Shop Now",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "image": "shopify:\/\/shop_images\/image5.jpg"
+          }
+        },
+        "0a7cbfbd-0101-4d21-8066-63b9cf884b57": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image4.jpg"
+          }
+        },
+        "505910eb-c447-45d0-84b3-734a73c4b121": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image2.jpg"
+          }
+        },
+        "2e77c1bf-ac99-46f3-bea1-35a7156ad704": {
+          "type": "button",
+          "settings": {
+            "button-banner": "Show now",
+            "button-banner-url": "shopify:\/\/collections\/all",
+            "button-checkbox-isIcon": true,
+            "button-icon": "shopify:\/\/shop_images\/book-icon.png"
           }
         }
       },
-      "block_order": ["heading", "sub-title", "button"],
+      "block_order": [
+        "template--16955854160090__0d5c5f77-df21-41bf-9bf3-e6606074c2e2-image-1",
+        "a81f2901-e48d-4475-859a-0ae1ba49de54",
+        "a0e98e07-eca0-4162-9ab0-1a8537303dcd",
+        "0a7cbfbd-0101-4d21-8066-63b9cf884b57",
+        "505910eb-c447-45d0-84b3-734a73c4b121",
+        "2e77c1bf-ac99-46f3-bea1-35a7156ad704"
+      ],
       "settings": {
-        "image_overlay_opacity": 0,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "inverse",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "title": "Buy Your Dream Books",
+        "sub-title": "Donec sodales sagittis magna. Sed Maecenas nec tincidunt tempus."
       }
     },
     "featured_collection": {
@@ -72,5 +85,8 @@
       }
     }
   },
-  "order": ["image_banner", "featured_collection"]
+  "order": [
+    "0d5c5f77-df21-41bf-9bf3-e6606074c2e2",
+    "featured_collection"
+  ]
 }
