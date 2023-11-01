@@ -4,9 +4,46 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "245489be-91a0-453e-b665-8423c2a45d78": {
+          "type": "text",
+          "settings": {
+            "heading": "<strong>Book Shop<\/strong>",
+            "subtext": "<p>1203 Town Center<br\/>Drive FL 33458 USA<\/p><p>+0000 123 456 789<\/p><p>bookecommere@shopify.com<\/p>"
+          }
+        },
+        "76eaf77e-4832-44e9-b9f0-d186a96a327f": {
+          "type": "link_list",
+          "settings": {
+            "heading": "<strong>For us<\/strong>",
+            "menu": "help_footer"
+          }
+        },
+        "8f821a0e-f052-4da3-8068-274e919a3278": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "support"
+          }
+        },
+        "3c6190c6-64ca-4c22-8e27-bfc191a6d517": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/t_i_xu_ng.jpg",
+            "image_width": 550,
+            "alignment": "right"
+          }
+        }
+      },
+      "block_order": [
+        "245489be-91a0-453e-b665-8423c2a45d78",
+        "76eaf77e-4832-44e9-b9f0-d186a96a327f",
+        "8f821a0e-f052-4da3-8068-274e919a3278",
+        "3c6190c6-64ca-4c22-8e27-bfc191a6d517"
+      ],
       "settings": {
-        "color_scheme": "background-1",
-        "newsletter_enable": true,
+        "color_scheme": "inverse",
+        "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
         "show_social": true,

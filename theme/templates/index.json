@@ -56,37 +56,113 @@
         "sub-title": "Donec sodales sagittis magna. Sed Maecenas nec tincidunt tempus."
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "fdc9c971-e23e-4115-9b15-894b118fb175": {
+      "type": "multirow",
+      "blocks": {
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-1": {
+          "type": "row",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/81c4d85be4a8cfa16e889c87e297e21c.jpg",
+            "caption": "",
+            "heading": "Action and Adventure",
+            "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sed ratione et inventore natus dolores, amet neque aliquam corporis minus, officia voluptatum placeat deleniti dolorum. Nesciunt impedit voluptate temporibus facere.<\/p>",
+            "button_label": "See more",
+            "button_link": "shopify:\/\/collections\/action-and-adventure"
+          }
+        },
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-2": {
+          "type": "row",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/978adfdf84413b3b6c965d1f35f49f17.jpg",
+            "caption": "",
+            "heading": "Biographies and Autobiographies",
+            "text": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis cumque explicabo commodi molestiae quidem sequi architecto dicta, reiciendis dolore error? Non ipsa ut doloremque neque perspiciatis. Placeat rerum maxime perspiciatis.<\/p>",
+            "button_label": "See more",
+            "button_link": "shopify:\/\/collections\/biographies-and-autobiographies"
+          }
+        },
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-3": {
+          "type": "row",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/482c3aca2fd5e40e80fd163f000f82ae.jpg",
+            "caption": "",
+            "heading": "Comic Book",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
+            "button_label": "See more",
+            "button_link": "shopify:\/\/collections\/comic-book-or-graphic-novel"
+          }
+        }
+      },
+      "block_order": [
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-1",
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-2",
+        "template--16955854160090__fdc9c971-e23e-4115-9b15-894b118fb175-row-3"
+      ],
+      "custom_css": [
+
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "background-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_quick_add": false,
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
+        "image_height": "medium",
+        "desktop_image_width": "small",
+        "heading_size": "h1",
+        "text_style": "subtitle",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "image_layout": "alternate-left",
+        "section_color_scheme": "",
+        "row_color_scheme": "scheme-8a4fe825-3c4a-47f7-861b-9b624510646b",
+        "mobile_content_alignment": "center",
+        "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "e399df66-6567-41d7-b7d1-e89b6fd97f17": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Contact us for detailed information",
+            "heading_size": "h1"
+          }
+        },
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Please share information about your experience, or make any contributions to us. Describe a product, make announcements, or welcome customers to your store.<\/p>"
+          }
+        },
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-button-1": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact me",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "shopify:\/\/pages\/contact",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-heading-1",
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-text-1",
+        "template--16955854160090__e399df66-6567-41d7-b7d1-e89b6fd97f17-button-1"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-8a4fe825-3c4a-47f7-861b-9b624510646b",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     }
   },
   "order": [
     "0d5c5f77-df21-41bf-9bf3-e6606074c2e2",
-    "featured_collection"
+    "fdc9c971-e23e-4115-9b15-894b118fb175",
+    "e399df66-6567-41d7-b7d1-e89b6fd97f17"
   ]
 }
