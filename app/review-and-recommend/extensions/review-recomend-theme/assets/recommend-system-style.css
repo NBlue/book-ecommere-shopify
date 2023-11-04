@@ -1,0 +1,14 @@
+.recommend-system-wrap {
+  /* background-color: blueviolet; */
+}
+
+.recommend-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.recommend-item {
+  background-color: antiquewhite;
+  border-radius: 8px;
+}
