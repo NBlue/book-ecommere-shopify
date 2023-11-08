@@ -1,14 +1,63 @@
 .recommend-system-wrap {
-  /* background-color: blueviolet; */
 }
 
-.recommend-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 30px;
+.recommend-system-wrap .title {
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.recommends {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.recommends::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.recommends::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.recommends::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 8px;
+}
+
+.recommends::-webkit-scrollbar-thumb:hover {
+  background: #999;
+  border-radius: 8px;
 }
 
 .recommend-item {
-  background-color: antiquewhite;
-  border-radius: 8px;
+  border-radius: 4px;
+}
+
+.recommends .recommend-item-image {
+  width: 270px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.recommend-system-wrap .recommend-item-name {
+  padding: 16px 0 8px;
+  margin: 0;
+  color: #123;
+  text-decoration: none;
+}
+
+.recommend-system-wrap .recommend-item-price {
+  padding: 0 0 16px;
+  margin: 0;
+  margin-right: 16px;
+}
+
+.recommend-system-wrap .recommend-item-old-price {
+  font-size: 14px;
+  text-decoration: line-through;
 }

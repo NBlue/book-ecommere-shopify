@@ -86,7 +86,7 @@ export default function Index() {
     <Page>
       <ui-title-bar title="Remix app template">
         <button variant="primary" onClick={generateProduct}>
-          Clich me! Nblue
+          Clich me! Nam
         </button>
       </ui-title-bar>
       <BlockStack gap="500">

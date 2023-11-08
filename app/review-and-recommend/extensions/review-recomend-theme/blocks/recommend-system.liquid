@@ -1,28 +1,11 @@
 {{ 'recommend-system-style.css' | asset_url | stylesheet_tag }}
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-{% assign title = 'Recommend system' %}
 <div class="recommend-system-wrap">
-  {{ title }}
-
-  <div class="">
-    <ion-icon name="heart"></ion-icon>
-    <ion-icon name="heart"></ion-icon>
-    <ion-icon name="heart"></ion-icon>
-    <ion-icon name="heart"></ion-icon>
-    <ion-icon name="heart"></ion-icon>
-  </div>
-  <div class="">
-    <ion-icon name="star-outline"></ion-icon>
-    <ion-icon name="star-half-outline"></ion-icon>
-    <ion-icon name="star"></ion-icon>
-  </div>
-
-  <div class="recommend-list"></div>
+  <h1 class="title">Recommend for you</h1>
+  <div class="recommends"></div>
 </div>
 
-<script src="{{ 'get-recommend-system.js' | asset_url }}" defer></script>
+<script async src="{{ 'get-recommend-system.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
