@@ -1,0 +1,27 @@
+{% assign avg_rating = 4 %}
+<div class="rating-block">
+  {% render 'stars', rating: avg_rating %}
+</div>
+
+{% comment %}
+  <script>
+    console.log('Hello world!');
+    async function getData() {
+      const response = await fetch('http://localhost:8000/blogs');
+      const data = await response.json();
+      console.log('DATA', data);
+    }
+    getData();
+  </script>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Rating Product",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#efc031" }
+  ]
+}
+{% endschema %}

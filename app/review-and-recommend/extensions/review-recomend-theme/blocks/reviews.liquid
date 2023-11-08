@@ -1,10 +1,208 @@
-<div class="reviews-wrap">
-  <p class="">Nguyen Phuong Nam Hello world</p>
+{{ 'review-block.css' | asset_url | stylesheet_tag }}
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<div class="reviews-container">
+  <p class="title">Customer reviews</p>
+  <div class="reviews-wrap">
+    {% render 'stars', rating: avg_rating %}
+  </div>
 </div>
+
+{% if shop.customer_accounts_enabled %}
+  {% if customer %}
+    <div class="your-review-container">
+      <div class="avatar-wrap-review">
+        <ion-chip>
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg">
+          <ion-label class="text">Nam Phuong Nguyen</ion-label>
+        </ion-chip>
+      </div>
+      <form action="" id="add-review-form" method="POST" class="review-form">
+        <div class="form-input">
+          <div class="form-control">
+            <label for="rating">Rating:</label>
+            <span class="rating-list">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <p class="text">Good!</p>
+            </span>
+          </div>
+
+          <div class="form-control">
+            <label for="image_url">Review Image:</label>
+            <input type="file" id="image_url" name="image_url">
+          </div>
+
+          <div class="form-control">
+            <label for="review">Review:</label>
+            <textarea id="review" name="review" rows="4" placeholder="Enter your review"></textarea>
+          </div>
+        </div>
+
+        <input type="submit" class="btn-submit" value="Write a review">
+      </form>
+    </div>
+  {% else %}
+    <span class="login-redirect">
+      <p class="login-redirect-text">Login to add your review?</p>
+      <a href="{{ routes.account_login_url }}" class="login-redirect-account">Login</a>
+    </span>
+  {% endif %}
+{% endif %}
+
+<div class="reviews-list">
+  <div class="reviews-item">
+    <img src="https://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg" alt="" class="image">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia hic laboriosam inventore amet, quidem modi suscipit
+      dolorem soluta enim illum eligendi adipisci earum esse eos ipsam facilis eius tenetur iure?
+    </div>
+    <div class="footer-wrap">
+      <span class="date">18/05/2023</span>
+      <div class="btn">
+        <button class="edit-btn">Edit</button>
+        <button class="removed-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus eos, facilis voluptatum suscipit assumenda
+      architecto, minus, unde tempore quaerat esse nisi culpa. Expedita, aperiam voluptate placeat doloribus tempore
+      quod sapiente.
+    </div>
+    <div class="btn">
+      <button class="edit-btn">Edit</button>
+      <button class="removed-btn">Delete</button>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur itaque delectus laboriosam cum vel repellat
+      tenetur doloremque nisi aperiam harum modi, dolore, laborum, neque sequi ipsa excepturi. Consectetur, nemo sed.
+    </div>
+  </div>
+  <div class="reviews-item">
+    <img
+      src="https://us.123rf.com/450wm/soleg/soleg1811/soleg181100840/118781449-beautiful-teen-girl-with-yellow-leaves-posing-in-autumn-city-park-she-is-peeking-out-from-the-tree.jpg?ver=6"
+      alt=""
+      class="image"
+    >
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur itaque delectus laboriosam cum vel repellat
+      tenetur doloremque nisi aperiam harum modi, dolore, laborum, neque sequi ipsa excepturi. Consectetur, nemo sed.
+    </div>
+    <div class="btn">
+      <button class="edit-btn">Edit</button>
+      <button class="removed-btn">Delete</button>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <img src="https://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg" alt="" class="image">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia hic laboriosam inventore amet, quidem modi suscipit
+      dolorem soluta enim illum eligendi adipisci earum esse eos ipsam facilis eius tenetur iure?
+    </div>
+    <div class="btn">
+      <button class="edit-btn">Edit</button>
+      <button class="removed-btn">Delete</button>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus eos, facilis voluptatum suscipit assumenda
+      architecto, minus, unde tempore quaerat esse nisi culpa. Expedita, aperiam voluptate placeat doloribus tempore
+      quod sapiente.
+    </div>
+    <div class="btn">
+      <button class="edit-btn">Edit</button>
+      <button class="removed-btn">Delete</button>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <img src="https://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg" alt="" class="image">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia hic laboriosam inventore amet, quidem modi suscipit
+      dolorem soluta enim illum eligendi adipisci earum esse eos ipsam facilis eius tenetur iure?
+    </div>
+    <div class="btn">
+      <button class="edit-btn">Edit</button>
+      <button class="removed-btn">Delete</button>
+    </div>
+  </div>
+  <div class="reviews-item">
+    <div class="ratings">
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star"></ion-icon>
+    </div>
+    <div class="review">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora veniam quidem molestias doloremque odit quaerat
+      amet praesentium sunt, eveniet numquam delectus nobis dolores, in corporis sapiente dolore, deleniti beatae autem!
+    </div>
+  </div>
+</div>
+
+<script async src="{{ 'review.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
-  "name": "reviews",
+  "name": "Reviews Product",
   "target": "section",
   "settings": []
 }

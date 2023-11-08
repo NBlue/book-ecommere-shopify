@@ -1,10 +1,50 @@
-{{ 'ratings.stars.label' | t }}:
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+{{ 'stars-snippest.css' | asset_url | stylesheet_tag }}
 
-{%- for i in (1..rating) -%}
-  ★
-{%- endfor -%}
-{%- assign blank_stars = 5 | minus: rating -%}
-{%- for i in (1..blank_stars) -%}
-  ☆
-{%- endfor -%}
+<div class="rating-snippest">
+  <span class="rating-wrap">
+    {%- for i in (1..rating) -%}
+      <ion-icon name="star"></ion-icon>
+    {%- endfor -%}
+    {%- assign blank_stars = 5 | minus: rating -%}
+    {%- for i in (1..blank_stars) -%}
+      <ion-icon name="star-outline"></ion-icon>
+    {%- endfor -%}
 
+    <p class="no-rating-text">No reviews yet</p>
+  </span>
+
+  <ul class="rating-detail">
+    <li class="rating-item">
+      <p class="rating-item-number">5</p>
+      <ion-icon name="star"></ion-icon>
+      <span class="rating-item-process"></span>
+      <p class="rating-item-count">0</p>
+    </li>
+    <li class="rating-item">
+      <p class="rating-item-number">4</p>
+      <ion-icon name="star"></ion-icon>
+      <span class="rating-item-process"></span>
+      <p class="rating-item-count">0</p>
+    </li>
+    <li class="rating-item">
+      <p class="rating-item-number">3</p>
+      <ion-icon name="star"></ion-icon>
+      <span class="rating-item-process"></span>
+      <p class="rating-item-count">0</p>
+    </li>
+    <li class="rating-item">
+      <p class="rating-item-number">2</p>
+      <ion-icon name="star"></ion-icon>
+      <span class="rating-item-process"></span>
+      <p class="rating-item-count">0</p>
+    </li>
+    <li class="rating-item">
+      <p class="rating-item-number">1</p>
+      <ion-icon name="star"></ion-icon>
+      <span class="rating-item-process"></span>
+      <p class="rating-item-count">0</p>
+    </li>
+  </ul>
+</div>
