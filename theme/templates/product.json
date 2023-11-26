@@ -15,12 +15,11 @@
           "settings": {
           }
         },
-        "3142a9d1-8241-48d2-8a3a-04ab90d29779": {
-          "type": "shopify:\/\/apps\/audien-reviews\/blocks\/star_rating\/ce002b21-24e0-4d65-87ca-18c9770b24d4",
+        "211e777a-891c-4b3c-b3c7-209f965e1ee0": {
+          "type": "shopify:\/\/apps\/review-and-recommend\/blocks\/rating_product\/67617ae9-aa6c-44e4-98c6-4dbf336bc747",
           "settings": {
-            "rating_color_for_star": "#FFCB45",
-            "primary_color_for_star": "#202223",
-            "card_backgroud_color_for_star": "#FFFFFF"
+            "product": "{{product}}",
+            "colour": "#efc031"
           }
         },
         "price": {
@@ -61,7 +60,7 @@
       "block_order": [
         "vendor",
         "title",
-        "3142a9d1-8241-48d2-8a3a-04ab90d29779",
+        "211e777a-891c-4b3c-b3c7-209f965e1ee0",
         "price",
         "variant_picker",
         "quantity_selector",
@@ -105,19 +104,20 @@
     "ce002b21-24e0-4d65-87ca-18c9770b24d4": {
       "type": "apps",
       "blocks": {
-        "ce002b21-24e0-4d65-87ca-18c9770b24d4": {
-          "type": "shopify:\/\/apps\/audien-reviews\/blocks\/review_list\/ce002b21-24e0-4d65-87ca-18c9770b24d4",
+        "dd23880b-e008-42d9-aad7-feb73f8fa2cf": {
+          "type": "shopify:\/\/apps\/review-and-recommend\/blocks\/recommend-system\/67617ae9-aa6c-44e4-98c6-4dbf336bc747",
           "settings": {
-            "bg_color": "#FFFFFF",
-            "card_backgroud_color": "#FFFFFF",
-            "brand_color": "#202223",
-            "primary_color": "#202223",
-            "rating_color": "#FFCB45"
+          }
+        },
+        "2bd3cd86-4896-4d63-9c03-086f6e7dea29": {
+          "type": "shopify:\/\/apps\/review-and-recommend\/blocks\/reviews\/67617ae9-aa6c-44e4-98c6-4dbf336bc747",
+          "settings": {
           }
         }
       },
       "block_order": [
-        "ce002b21-24e0-4d65-87ca-18c9770b24d4"
+        "dd23880b-e008-42d9-aad7-feb73f8fa2cf",
+        "2bd3cd86-4896-4d63-9c03-086f6e7dea29"
       ],
       "settings": {
         "include_margins": true

@@ -1,15 +1,22 @@
 {{ 'recommend-system-style.css' | asset_url | stylesheet_tag }}
 
 <div class="recommend-system-wrap">
-  <h1 class="title">Recommend for you</h1>
-  <div class="recommends"></div>
+  <div class="head">
+    <h1 class="title">You may like the following books</h1>
+  </div>
+  <div class="recommends collabs"></div>
+
+  <div class="head">
+    <h1 class="title">Popular books</h1>
+  </div>
+  <div class="recommends populars"></div>
 </div>
 
 <script async src="{{ 'get-recommend-system.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
-  "name": "Recommend Books",
+  "name": "Rcm Collab Filtering",
   "target": "section",
   "settings": []
 }

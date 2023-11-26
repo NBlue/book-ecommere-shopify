@@ -1,0 +1,7 @@
+1. Content-based Recommendation Systems:
+- Gợi ý dựa vào đặc trưng mỗi item
+- Xây dựng mô hình cho mỗi user không dựa vào user khác mà chỉ phụ thuộc vào profile mỗi item
+- Nhược điểm:
+  + Không tận dụng được thông tin từ các user khác
+  + Không phải lúc nào cũng có bản mô tả mỗi item (user gắn tag cho item - phân loại cho nó)
+- Bài viết này dùng Neighborhood-based Collaborative Filtering

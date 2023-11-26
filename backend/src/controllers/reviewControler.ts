@@ -23,7 +23,65 @@ const reviewControler = {
       const query = `SELECT * FROM reviews WHERE handle = '${handle}'`;
       connection.query(query, (error: any, results: any) => {
         if (error) console.log('ERROR', error);
-        return res.status(200).json({ success: true, data: results });
+
+        let ratingCount = 0;
+        for (let i = 0; i < results.length; i++) {
+          ratingCount += results[i].rating;
+        }
+        const ratingMedium = Number((ratingCount / results.length).toFixed());
+        return res
+          .status(200)
+          .json({ success: true, ratingMedium, data: results });
+      });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, error: 'Internal Server Error' });
+    }
+  },
+
+  getRatingCount: async (req: any, res: any) => {
+    try {
+      const handle = req.params.handle;
+      let result: any = {};
+
+      const countQueries = Array.from({ length: 5 }, (_, i) => {
+        const rating = i + 1;
+        const query = `SELECT COUNT(*) as count FROM reviews WHERE handle = '${handle}' and rating = ${rating}`;
+        return new Promise<void>((resolve, reject) => {
+          connection.query(query, (error: any, results: any) => {
+            if (error) {
+              console.log('ERROR', error);
+              reject(error);
+            } else {
+              result[`rating-${rating}`] = results[0].count;
+              resolve();
+            }
+          });
+        });
+      });
+
+      // Wait for all count queries to finish
+      await Promise.all(countQueries);
+
+      const query = `SELECT * FROM reviews WHERE handle = '${handle}'`;
+      connection.query(query, (error: any, results: any) => {
+        if (error) {
+          console.log('ERROR', error);
+          return res
+            .status(500)
+            .json({ success: false, error: 'Internal Server Error' });
+        }
+
+        let ratingCount = 0;
+        for (let i = 0; i < results.length; i++) {
+          ratingCount += results[i].rating;
+        }
+
+        const ratingMedium = Number((ratingCount / results.length).toFixed());
+        result['ratingMedium'] = ratingMedium;
+
+        return res.status(200).json({ success: true, data: result });
       });
     } catch (error) {
       return res
