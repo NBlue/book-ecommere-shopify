@@ -64,3 +64,36 @@ const count = 10;
     });
   };
 })();
+
+const recommendCfElements = document.querySelector(
+  ".recommend-system-wrap .recommends.cf-user"
+);
+const email = recommendCfElements.getAttribute("email");
+console.log({ email });
+
+(function () {
+  fetch(
+    `http://localhost:9001/get-recommend?type=cf-user&count=${count}&email=${email}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      renderData(data);
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+
+  const renderData = (res) => {
+    res.data.forEach((item) => {
+      const recommendItem = `
+      <div class="recommend-item">
+        <img src="${item["Image Src"]}" alt="image" class="recommend-item-image" />
+        <a href="/products/${item.handle}" class="recommend-item-name">${item["Title"]}</a>
+        <p class="recommend-item-price">
+          <span class="recommend-item-old-price">$${item["Variant Compare At Price"]}</span>
+          $${item["Variant Price"]}
+        </p>
+      </div>`;
+
+      recommendCfElements.insertAdjacentHTML("beforeend", recommendItem);
+    });
+  };
+})();

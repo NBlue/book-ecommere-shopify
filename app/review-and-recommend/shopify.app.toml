@@ -2,7 +2,7 @@
 
 name = "review-and-recommend"
 client_id = "719d051c89168a8fca5449a95ca9a949"
-application_url = "https://4f84-2405-4802-1bf6-d0f0-ac53-5ae3-5ced-8f56.ngrok-free.app"
+application_url = "https://closed-fragrances-instruments-alleged.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "read_products, write_products"
 
 [auth]
 redirect_urls = [
-  "https://4f84-2405-4802-1bf6-d0f0-ac53-5ae3-5ced-8f56.ngrok-free.app/auth/callback",
-  "https://4f84-2405-4802-1bf6-d0f0-ac53-5ae3-5ced-8f56.ngrok-free.app/auth/shopify/callback",
-  "https://4f84-2405-4802-1bf6-d0f0-ac53-5ae3-5ced-8f56.ngrok-free.app/api/auth/callback",
-  "https://4f84-2405-4802-1bf6-d0f0-ac53-5ae3-5ced-8f56.ngrok-free.app/.shopify/graphiql/auth/callback"
+  "https://closed-fragrances-instruments-alleged.trycloudflare.com/auth/callback",
+  "https://closed-fragrances-instruments-alleged.trycloudflare.com/auth/shopify/callback",
+  "https://closed-fragrances-instruments-alleged.trycloudflare.com/api/auth/callback",
+  "https://closed-fragrances-instruments-alleged.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

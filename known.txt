@@ -1,7 +1,37 @@
+
+- Content-based systems: đánh giá đặc tính của items được recommend => Ví dụ sách này nói về món ăn => gợi ý sách khác cùng chủ đề món ăn => nhược điểm: có những items không có nhóm cụ thể làm bất khả thi (Đây là phương pháp đơn giản nhất: xây dựng mô hình cho mỗi user mà không phụ thuộc vào user khác
+- Collaborative filtering: gợi ý dựa trên sự tương quan giữa các user và/hoặc items
+
+  (Các users thường gom nhóm thành các nhóm đơn giản)
+- Thông thường thì có nhiều users và items trong hệ thống, mỗi user thường chỉ rating 1 lượng nhỏ item =>  thậm chí có user ko rating loại nào => lượng ô màu trắng (chưa rating) là vô cùng lớn, ô đã điền rất nhỏ.
+=> Chỉ có cách gợi ý sản phẩm phổ biến nhất
+
+Ma trận Utility matrix:
+Mức độ quan tâm này, nếu đã biết trước, được gán cho một giá trị ứng với mỗi cặp user-item. Giả sử rằng mức độ quan tâm được đo bằng giá trị user rate cho item, ta tạm gọi giá trị này là rating
+
+
 1. Content-based Recommendation Systems:
+- Phương pháp này cần 1 bộ profile cho mỗi item. Ví dụ sách: tên, tác giả, năm sáng tác, thể loại,...
+
+
 - Gợi ý dựa vào đặc trưng mỗi item
 - Xây dựng mô hình cho mỗi user không dựa vào user khác mà chỉ phụ thuộc vào profile mỗi item
 - Nhược điểm:
   + Không tận dụng được thông tin từ các user khác
   + Không phải lúc nào cũng có bản mô tả mỗi item (user gắn tag cho item - phân loại cho nó)
-- Bài viết này dùng Neighborhood-based Collaborative Filtering
+
+2. Collaborative Filtering
+- Bài viết này dùng Neighborhood-based Collaborative Filtering. (User-user Collab... và Item-item Collab...)
+- Ý tưởng cơ bản: xác định mức độ quan tâm của user tới một item khác dựa trên các users khác gần giống với user này. Việc gần giống nhau giữa caccs users được xác định thông qua mức độ quan tâm của các users này tới các items khác mà hệ thống đã biết
+- Ví dụ, A, B đều thích phim Cảnh sát hình sự, tức đều rate bộ phim này 5 sao. Ta đã biết A cũng thích Người phán xử, vậy nhiều khả năng B cũng thích bộ phim này.
+
+2.1 user-user: xác định sự giống nhau giữa các user
+
+
+Độ similarity của hai vector là 1 số trong đoạn [-1, 1]. Giá trị bằng 1 thể hiện hai vector hoàn toàn similar nhau. Hàm số 
+cos
+ của một góc bằng 1 nghĩa là góc giữa hai vector bằng 0, tức một vector bằng tích của một số dương với vector còn lại. Giá trị 
+cos
+ bằng -1 thể hiện hai vector này hoàn toàn trái ngược nhau. Điều này cũng hợp lý , tức khi hành vi của hai users là hoàn toàn ngược nhau thi similarity giữa hai vector đó là thấp nhất.
+
+

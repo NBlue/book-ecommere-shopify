@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import TruncatedSVD
 from flask import Blueprint, jsonify, request, send_file
 
-from .services import get_popular_books, get_collab_filters_books, train_collab_modal
+from .services import get_popular_books, get_collab_filters_books, train_cf_modal, get_cf_books
 from ..database import connect_db, disconnect_db, execute_query
 plt.style.use("ggplot")
 
@@ -46,23 +46,27 @@ def download_file():
 # Product collab filtering
 @reviews.route('/training/collab-filter')
 def train_collab():
-    is_training = train_collab_modal()
+    is_training = train_cf_modal()
     if is_training:
         return jsonify({'success': True,}), 200
     return jsonify({'success': False,}), 404
 
 # /get-recommend?type=popular&count=10
-# /get-recommend?type=collab-filter&count=10
+# /get-recommend?type=collab-filter&count=10&handle=...
+# /get-recommend?type=cf-user&count=10&email=namvip0105@gmail.com
 @reviews.route('/get-recommend')
 def get_recommend():
-    count_param = request.args.get('count', default=10, type=int)
     type_param = request.args.get('type', default='popular', type=str)
+    count_param = request.args.get('count', default=10, type=int)
     handle_param = request.args.get('handle', type=str)
+    email_param = request.args.get('email', type=str)
 
     if(type_param == 'popular'):
         data = get_popular_books(count_param)
     elif(type_param == 'collab-filter'):
         data = get_collab_filters_books(handle_param, count_param)
+    elif(type_param == 'cf-user'):
+        data = get_cf_books(email_param, count_param)
     return jsonify({'success': True, 'data': data, 'data_length': len(data) })
 
 

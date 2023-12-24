@@ -1,8 +1,14 @@
 {{ 'recommend-system-style.css' | asset_url | stylesheet_tag }}
 
 <div class="recommend-system-wrap">
+  {% if customer %}
+    <div class="head">
+      <h1 class="title">You may like the following books</h1>
+    </div>
+    <div email="{{ customer.email }}" class="recommends cf-user"></div>
+  {% endif %}
   <div class="head">
-    <h1 class="title">You may like the following books</h1>
+    <h1 class="title">Nomalize books</h1>
   </div>
   <div class="recommends collabs"></div>
 

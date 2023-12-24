@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { json } from "@remix-run/node";
-import { useActionData, useNavigation, useSubmit } from "@remix-run/react";
 import {
   Page,
   Layout,
   Text,
-  Card,
-  Button,
   BlockStack,
-  Box,
-  List,
   Link,
-  InlineStack,
+  IndexTable,
+  Thumbnail,
+  Pagination,
+  Frame,
+  Modal,
+  DropZone,
+  Button,
+  Toast,
 } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
+import { ImageMajor } from "@shopify/polaris-icons";
+import "../styles/index.css";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
@@ -65,216 +69,220 @@ export const action = async ({ request }) => {
 };
 
 export default function Index() {
-  const nav = useNavigation();
-  const actionData = useActionData();
-  const submit = useSubmit();
-  const isLoading =
-    ["loading", "submitting"].includes(nav.state) && nav.formMethod === "POST";
-  const productId = actionData?.product?.id.replace(
-    "gid://shopify/Product/",
-    ""
-  );
+  const limit = 10;
+  const [reviews, setReviews] = useState([]);
+  const [tableMetadata, setTableMetadata] = useState();
+  const [curPage, setCurPage] = useState(1);
+  const [openModalImport, setOpenModalImport] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [toasMsg, setToastMsg] = useState("");
+  const [trainLoading, setTrainLoading] = useState(false);
+  const [importSuccess, setImportSuccess] = useState(false);
 
   useEffect(() => {
-    if (productId) {
-      shopify.toast.show("Product created");
+    const getReviews = async () => {
+      const response = await fetch(
+        `http://localhost:9000/v1/review?page=${curPage}&limit=${limit}&sortBy=createdAt&sortType=DESC`
+      );
+      const newData = await response.json();
+      setReviews(newData.data);
+      setTableMetadata(newData.metadata);
+    };
+    getReviews();
+  }, [curPage, importSuccess]);
+
+  const handleExport = () => {
+    try {
+      window.location.href = "http://localhost:9000/v1/review/export";
+    } catch (error) {
+      console.log(error);
     }
-  }, [productId]);
-  const generateProduct = () => submit({}, { replace: true, method: "POST" });
+  };
+
+  const handleTrainModal = async () => {
+    try {
+      setTrainLoading(true);
+      await fetch(`http://localhost:9001/training/collab-filter`);
+      setToastMsg("Train recommend model successfully");
+      alert("Train recommend model successfully");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTrainLoading(false);
+    }
+  };
+
+  const handleDropZoneDrop = useCallback(
+    (_dropFiles, acceptedFiles, _rejectedFiles) => {
+      console.log("File", acceptedFiles);
+      setFiles((files) => [...files, ...acceptedFiles]);
+    },
+    []
+  );
+
+  const TableRow = ({ review }) => {
+    return (
+      <IndexTable.Row id={review.id} position={review.id}>
+        <IndexTable.Cell>
+          <Text as="p">{review.email}</Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Link to={`/products/${review.handle}`}>{review.handle}</Link>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Text as="p">{review.rating}</Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Thumbnail
+            source={review.image_url || ImageMajor}
+            alt={review.handle}
+            size="small"
+          />
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Text as="p">{review.comment}</Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          {new Date(review.createdAt).toDateString()}
+        </IndexTable.Cell>
+      </IndexTable.Row>
+    );
+  };
+
+  const ModalImport = () => {
+    const handleImport = async () => {
+      try {
+        const formData = new FormData();
+        files.forEach((file) => {
+          formData.append("reviews-csv", file);
+        });
+        await fetch(`http://localhost:9000/v1/review/import`, {
+          method: "POST",
+          body: formData,
+        });
+        setOpenModalImport(false);
+        setToastMsg("Import successfully");
+        setImportSuccess((togge) => !togge);
+        alert("Train recommend model successfully");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    return (
+      <div style={{ height: "500px" }}>
+        <Frame>
+          <Modal
+            open={openModalImport}
+            onClose={() => setOpenModalImport(false)}
+            title="Import data"
+            primaryAction={{
+              content: "Save",
+              onAction: () => handleImport(),
+              loading: false,
+            }}
+            secondaryActions={[
+              {
+                content: "Cancel",
+                onAction: () => setOpenModalImport(false),
+              },
+            ]}
+          >
+            <Modal.Section>
+              <DropZone onDrop={handleDropZoneDrop} variableHeight>
+                {files.length > 0 && (
+                  <div>
+                    {files.map((file, index) => (
+                      <div alignment="center" key={index}>
+                        <div>
+                          {file.name}{" "}
+                          <Text variant="bodySm" as="p">
+                            {file.size} bytes
+                          </Text>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {!files.length && (
+                  <DropZone.FileUpload actionHint="Accepts .csv" />
+                )}
+              </DropZone>
+            </Modal.Section>
+          </Modal>
+        </Frame>
+      </div>
+    );
+  };
 
   return (
     <Page>
-      <ui-title-bar title="Remix app template">
-        <button variant="primary" onClick={generateProduct}>
-          Clich me! Nam
+      <ui-title-bar title="Dashboard Customer">
+        <button onClick={() => setOpenModalImport(true)}>Import CSV</button>
+        <button variant="primary" onClick={handleExport}>
+          Export CSV
         </button>
       </ui-title-bar>
       <BlockStack gap="500">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            variant="primary"
+            tone="critical"
+            loading={trainLoading}
+            onClick={handleTrainModal}
+          >
+            Train Recommend Modal
+          </Button>
+          <h3 className="text">Total: {tableMetadata?.totalItems}</h3>
+        </div>
         <Layout>
           <Layout.Section>
-            <Card>
-              <BlockStack gap="500">
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    Congrats on creating a new Shopify app 🎉
-                  </Text>
-                  <Text variant="bodyMd" as="p">
-                    This embedded app template uses{" "}
-                    <Link
-                      url="https://shopify.dev/docs/apps/tools/app-bridge"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    interface examples like an{" "}
-                    <Link url="/app/additional" removeUnderline>
-                      additional page in the app nav
-                    </Link>
-                    , as well as an{" "}
-                    <Link
-                      url="https://shopify.dev/docs/api/admin-graphql"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      Admin GraphQL
-                    </Link>{" "}
-                    mutation demo, to provide a starting point for app
-                    development.
-                  </Text>
-                </BlockStack>
-                <BlockStack gap="200">
-                  <Text as="h3" variant="headingMd">
-                    Get started with products
-                  </Text>
-                  <Text as="p" variant="bodyMd">
-                    Generate a product with GraphQL and get the JSON output for
-                    that product. Learn more about the{" "}
-                    <Link
-                      url="https://shopify.dev/docs/api/admin-graphql/latest/mutations/productCreate"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      productCreate
-                    </Link>{" "}
-                    mutation in our API references.
-                  </Text>
-                </BlockStack>
-                <InlineStack gap="300">
-                  <Button loading={isLoading} onClick={generateProduct}>
-                    Generate a product
-                  </Button>
-                  {actionData?.product && (
-                    <Button
-                      url={`shopify:admin/products/${productId}`}
-                      target="_blank"
-                      variant="plain"
-                    >
-                      View product
-                    </Button>
-                  )}
-                </InlineStack>
-                {actionData?.product && (
-                  <Box
-                    padding="400"
-                    background="bg-surface-active"
-                    borderWidth="025"
-                    borderRadius="200"
-                    borderColor="border"
-                    overflowX="scroll"
-                  >
-                    <pre style={{ margin: 0 }}>
-                      <code>{JSON.stringify(actionData.product, null, 2)}</code>
-                    </pre>
-                  </Box>
-                )}
-              </BlockStack>
-            </Card>
-          </Layout.Section>
-          <Layout.Section variant="oneThird">
-            <BlockStack gap="500">
-              <Card>
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    App template specs
-                  </Text>
-                  <BlockStack gap="200">
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Framework
-                      </Text>
-                      <Link
-                        url="https://remix.run"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Remix
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Database
-                      </Text>
-                      <Link
-                        url="https://www.prisma.io/"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Prisma
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Interface
-                      </Text>
-                      <span>
-                        <Link
-                          url="https://polaris.shopify.com"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          Polaris
-                        </Link>
-                        {", "}
-                        <Link
-                          url="https://shopify.dev/docs/apps/tools/app-bridge"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          App Bridge
-                        </Link>
-                      </span>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        API
-                      </Text>
-                      <Link
-                        url="https://shopify.dev/docs/api/admin-graphql"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        GraphQL API
-                      </Link>
-                    </InlineStack>
-                  </BlockStack>
-                </BlockStack>
-              </Card>
-              <Card>
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    Next steps
-                  </Text>
-                  <List>
-                    <List.Item>
-                      Build an{" "}
-                      <Link
-                        url="https://shopify.dev/docs/apps/getting-started/build-app-example"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        {" "}
-                        example app
-                      </Link>{" "}
-                      to get started
-                    </List.Item>
-                    <List.Item>
-                      Explore Shopify’s API with{" "}
-                      <Link
-                        url="https://shopify.dev/docs/apps/tools/graphiql-admin-api"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        GraphiQL
-                      </Link>
-                    </List.Item>
-                  </List>
-                </BlockStack>
-              </Card>
-            </BlockStack>
+            <IndexTable
+              resourceName={{
+                singular: "Reviews",
+                plural: "Reviews",
+              }}
+              itemCount={1000}
+              headings={[
+                { title: "Email" },
+                { title: "Handle books" },
+                { title: "Ratings" },
+                { title: "Image" },
+                { title: "Comment" },
+                { title: "Date" },
+              ]}
+              selectable={false}
+            >
+              {reviews.map((review) => (
+                <TableRow key={review.id} review={review} />
+              ))}
+            </IndexTable>
+            <Pagination
+              onPrevious={() => {
+                console.log("Previous");
+                setCurPage(curPage - 1);
+              }}
+              onNext={() => {
+                console.log("Next");
+                setCurPage(curPage + 1);
+              }}
+              type="table"
+              hasNext={curPage !== tableMetadata?.totalPages}
+              hasPrevious={curPage !== 1}
+              label={`1-${limit} of ${tableMetadata?.totalItems} reviews (Page ${curPage} / ${tableMetadata?.totalPages})`}
+            />
           </Layout.Section>
         </Layout>
       </BlockStack>
+      <ModalImport />
+      {/* {toasMsg.length !== "" && (
+        <Toast content={toasMsg} onDismiss={() => setToastMsg("")} />
+      )} */}
     </Page>
   );
 }

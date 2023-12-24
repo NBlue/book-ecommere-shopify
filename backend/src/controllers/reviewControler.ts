@@ -1,6 +1,8 @@
 const fs = require('fs');
-const connection = require('../config/database');
+const { connection, prsConnection } = require('../config/database');
 const cloudinary = require('../config/cloudinary');
+const data_export = require('json2csv').Parser;
+const csv = require('csv-parser');
 
 const reviewControler = {
   getAllReview: async (req: any, res: any) => {
@@ -9,6 +11,37 @@ const reviewControler = {
       connection.query(query, (error: any, results: any) => {
         if (error) console.log('ERROR', error);
         return res.status(200).json({ success: true, data: results });
+      });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, error: 'Internal Server Error' });
+    }
+  },
+
+  getReviews: async (req: any, res: any) => {
+    try {
+      const { page, limit, sortBy, sortType } = req.query;
+      const offset = (page - 1) * limit;
+
+      const [data] = await prsConnection.query(
+        `SELECT * FROM reviews ${
+          sortBy && sortType ? `ORDER BY ${sortBy} ${sortType}` : ''
+        } limit ? offset ?`,
+        [+limit, +offset]
+      );
+      const [totalReviews] = await prsConnection.query(
+        'SELECT count(*) AS count FROM reviews'
+      );
+      const totalPage = Math.ceil(+totalReviews[0]?.count / limit);
+
+      return res.status(200).json({
+        success: true,
+        data: data,
+        metadata: {
+          totalItems: totalReviews[0]?.count,
+          totalPages: totalPage,
+        },
       });
     } catch (error) {
       return res
@@ -184,6 +217,87 @@ const reviewControler = {
           .status(200)
           .json({ success: true, message: 'Delete review successfully!' });
       });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, error: 'Internal Server Error' });
+    }
+  },
+
+  exportReviews: async (req: any, res: any) => {
+    try {
+      const [data] = await prsConnection.query(`SELECT * FROM reviews`);
+      if (data.length > 0) {
+        const mysqlData = JSON.parse(JSON.stringify(data));
+        const fileHead = [
+          'id',
+          'email',
+          'userId',
+          'rating',
+          'comment',
+          'image_url',
+          'handle',
+          'createdAt',
+          'updatedAt',
+        ];
+        const jsonData = new data_export({ fileHead });
+        const csvData = jsonData.parse(mysqlData);
+
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader(
+          'Content-Disposition',
+          'attachment; filename=reviews.csv'
+        );
+
+        return res.status(200).end(csvData);
+      } else {
+        res.status(404).json({ error: 'No data found' });
+      }
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, error: 'Internal Server Error' });
+    }
+  },
+
+  importReviews: async (req: any, res: any) => {
+    try {
+      const results: any = [];
+      fs.createReadStream(req.file.path)
+        .pipe(csv())
+        .on('data', (data: any) => {
+          results.push(data);
+        })
+        .on('end', () => {
+          fs.unlinkSync(req.file.path);
+          importResult(results);
+          console.log(results);
+        });
+
+      const importResult = (data: any) => {
+        console.log(data);
+        const query =
+          'INSERT INTO reviews (email, userId, rating, comment, image_url, handle) VALUES ?';
+        const values = data.map((item: any) => [
+          item.email,
+          item.userId,
+          item.rating,
+          item.comment,
+          item.image_url,
+          item.handle,
+        ]);
+        connection.query(query, [values], (error: any, results: any) => {
+          if (error)
+            return res.status(400).json({
+              success: false,
+              message: 'import reviews errors',
+              error: error,
+            });
+          return res
+            .status(200)
+            .json({ success: true, message: 'Add review successfully!' });
+        });
+      };
     } catch (error) {
       return res
         .status(500)
