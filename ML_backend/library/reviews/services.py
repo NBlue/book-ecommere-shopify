@@ -58,11 +58,9 @@ def get_popular_books(count: int = 10):
     popular_products = pd.DataFrame(df.groupby('handle')['rating'].count())
     most_popular = popular_products.sort_values('rating', ascending=False)
 
-    most_popular_top = most_popular.head(count)
-
-
     books = get_all_books()
-    res = pd.merge(most_popular_top, books, how='left', on='handle').fillna('null')
+    merge_df = pd.merge(most_popular, books, how='left', on='handle').fillna('null')
+    res = merge_df[merge_df['id'] != 'null'].head(count)
     data = res.reset_index().to_dict(orient='records')
 
     return data
@@ -110,8 +108,7 @@ def get_cf_books(email: str, count: int = 10):
     recommendIds = collab_result[result['data'][0][0]][:count]
 
     df = pd.DataFrame(result2['data'], columns=result2['columns'])
-    df = df[["productId", "handle"]]
-    df = df.dropna()
+    df = df[["productId", "handle"]].dropna().drop_duplicates()
     df = df[df['productId'].isin(recommendIds)]
 
     books = get_all_books()

@@ -22,26 +22,26 @@ def get_all_ratings():
     print (df)
     return jsonify({'success': True, 'data': result})
 
-# Download all reviews
-@reviews.route('/download-all-reviews')
-def download_file():
-    connection = connect_db()
-    query = "SELECT * FROM reviews"
-    result = execute_query(connection, query)
-    disconnect_db(connection)
-    df = pd.DataFrame(result['data'], columns=result['columns'])
-    csv_data = io.StringIO()
-    df.to_csv(csv_data, index=False)
+# # Download all reviews
+# @reviews.route('/download-all-reviews')
+# def download_file():
+#     connection = connect_db()
+#     query = "SELECT * FROM reviews"
+#     result = execute_query(connection, query)
+#     disconnect_db(connection)
+#     df = pd.DataFrame(result['data'], columns=result['columns'])
+#     csv_data = io.StringIO()
+#     df.to_csv(csv_data, index=False)
     
-    # Create a response with the CSV data
-    response = send_file(
-        io.BytesIO(csv_data.getvalue().encode('utf-8')),
-        mimetype='text/csv',
-        as_attachment=True,
-        download_name='reviews.csv'
-    )
+#     # Create a response with the CSV data
+#     response = send_file(
+#         io.BytesIO(csv_data.getvalue().encode('utf-8')),
+#         mimetype='text/csv',
+#         as_attachment=True,
+#         download_name='reviews.csv'
+#     )
     
-    return response
+#     return response
 
 # Product collab filtering
 @reviews.route('/training/collab-filter')

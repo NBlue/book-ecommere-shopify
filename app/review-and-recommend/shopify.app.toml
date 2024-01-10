@@ -2,7 +2,7 @@
 
 name = "review-and-recommend"
 client_id = "719d051c89168a8fca5449a95ca9a949"
-application_url = "https://closed-fragrances-instruments-alleged.trycloudflare.com"
+application_url = "https://opportunities-naval-interim-nevertheless.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "read_products, write_products"
 
 [auth]
 redirect_urls = [
-  "https://closed-fragrances-instruments-alleged.trycloudflare.com/auth/callback",
-  "https://closed-fragrances-instruments-alleged.trycloudflare.com/auth/shopify/callback",
-  "https://closed-fragrances-instruments-alleged.trycloudflare.com/api/auth/callback",
-  "https://closed-fragrances-instruments-alleged.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://opportunities-naval-interim-nevertheless.trycloudflare.com/auth/callback",
+  "https://opportunities-naval-interim-nevertheless.trycloudflare.com/auth/shopify/callback",
+  "https://opportunities-naval-interim-nevertheless.trycloudflare.com/api/auth/callback",
+  "https://opportunities-naval-interim-nevertheless.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

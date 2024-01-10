@@ -34,15 +34,16 @@
         <input type="submit" class="btn-submit" value="Write a review">
       </form>
     </div>
+
     <div class="reviews-list"></div>
-    <script async src="{{ 'review.js' | asset_url }}" defer></script>
+    {% comment %} <script async src="{{ 'review-books.js' | asset_url }}" defer></script> {% endcomment %}
   {% else %}
     <span class="login-redirect">
       <p class="login-redirect-text">Login to add your review?</p>
       <a href="{{ routes.account_login_url }}" class="login-redirect-account">Login</a>
     </span>
+
     <div class="reviews-list"></div>
-    <script async src="{{ 'review.js' | asset_url }}" defer></script>
   {% endif %}
 {% endif %}
 

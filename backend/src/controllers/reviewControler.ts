@@ -127,20 +127,23 @@ const reviewControler = {
     try {
       let query = null;
       const email = req.body.email;
-      const userId = req.body.userId;
       const rating = req.body.rating;
       const comment = req.body.comment;
       const handle = req.body.handle;
 
+      const [data] = await prsConnection.query(
+        `SELECT * FROM reviews WHERE handle = '${handle}' LIMIT 1`
+      );
+
       if (!req.file) {
-        query = `INSERT INTO reviews (email, userId, rating, comment, handle) VALUES ('${email}', '${userId}', ${rating}, '${comment}', '${handle}')`;
+        query = `INSERT INTO reviews (email, userId, rating, comment, handle, productId) VALUES ('${email}', '${data[0].userId}', ${rating}, '${comment}', '${handle}', '${data[0].productId}')`;
       } else {
         const result = await cloudinary.uploader.upload(req.file.path, {
           folder: 'Reviews',
         });
         fs.unlinkSync(req.file.path);
         const image_url = result.secure_url;
-        query = `INSERT INTO reviews (email, userId, rating, comment, image_url, handle) VALUES ('${email}', '${userId}', ${rating}, '${comment}', '${image_url}',  '${handle}')`;
+        query = `INSERT INTO reviews (email, userId, rating, comment, image_url, handle, productId) VALUES ('${email}', '${data[0].userId}', ${rating}, '${comment}', '${image_url}',  '${handle}', '${data[0].productId}')`;
       }
 
       connection.query(query, (error: any, results: any) => {
@@ -277,7 +280,7 @@ const reviewControler = {
       const importResult = (data: any) => {
         console.log(data);
         const query =
-          'INSERT INTO reviews (email, userId, rating, comment, image_url, handle) VALUES ?';
+          'INSERT INTO reviews (email, userId, rating, comment, image_url, handle, productId) VALUES ?';
         const values = data.map((item: any) => [
           item.email,
           item.userId,
@@ -285,12 +288,13 @@ const reviewControler = {
           item.comment,
           item.image_url,
           item.handle,
+          item.productId,
         ]);
         connection.query(query, [values], (error: any, results: any) => {
           if (error)
             return res.status(400).json({
               success: false,
-              message: 'import reviews errors',
+              message: 'Import reviews errors',
               error: error,
             });
           return res
